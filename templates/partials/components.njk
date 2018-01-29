@@ -1,0 +1,273 @@
+{% macro title(text) %}
+    <text:h text:style-name="heading_1">{{ text }}</text:h>
+{% endmacro %}
+
+{% macro company_info_subtitle(companyName, companyNumber) %}
+    <text:h text:style-name="heading_2">{{ companyName }} ({{ companyNumber }}) (“Company”)</text:h>
+{% endmacro %}
+
+{% macro date_subtitle(text) %}
+    <text:h text:style-name="heading_3">{{ text }}</text:h>
+{% endmacro %}
+
+{% macro blank_line() %}
+    <text:p text:style-name="text_normal" />
+{% endmacro %}
+
+{% macro blank_table_line() %}
+    <text:p text:style-name="table_contents" />
+{% endmacro %}
+
+{% macro notes(notesList) %}
+    {% if notesList | length > 0 %}
+        <text:p text:style-name="text_normal">It is noted that:</text:p>
+
+        <text:list text:style-name="normal_list" text:continue-numbering="false">
+            {% for note in notesList %}
+                <text:list-item>
+                    <text:p text:style-name="text_normal">
+                        {{ note['text'] }}
+                    </text:p>
+                </text:list-item>
+            {% endfor %}
+        </text:list>
+    {% endif %}
+{% endmacro %}
+
+{% macro signature_line() %}
+    <text:p text:style-name="text_normal" />
+    <text:p text:style-name="signature_line" />
+{% endmacro %}
+
+{% macro table_signature_line() %}
+    <text:p text:style-name="table_signature_line" />
+{% endmacro %}
+
+{% macro signature_image_meta(signatory) %}
+    {% if useDataImage() %}
+    <text:p text:style-name="text_normal">
+    <draw:frame draw:z-index="2" draw:style-name="data_image" style:rel-width="100%"  text:anchor-type="paragraph">
+          <draw:image xlink:actuate="onLoad" xlink:href="Pictures/{{ addDataImage(signatory) }}.png" xlink:show="embed" xlink:type="simple"/>
+    </draw:frame>
+    </text:p>
+    {% endif %}
+{% endmacro %}
+
+{% macro link(text, link) -%}
+    <text:a
+        text:style-name="internet_link"
+        xlink:href="{{ link }}"
+        xlink:type="simple">
+
+        {{- text -}}
+    </text:a>
+{%- endmacro %}
+
+
+{% macro logo(metadata) %}
+    {% if metadata.useLogo %}
+        <draw:frame draw:name="Frame1" draw:style-name="logo_pad" draw:z-index="1" svg:width="4cm" svg:x="0cm" svg:y="0cm" text:anchor-type="paragraph">
+            <draw:text-box fo:min-height="4cm">
+            </draw:text-box>
+        </draw:frame>
+    <draw:frame draw:name="Image1" draw:style-name="logo_style" draw:z-index="0" svg:height="4cm" svg:width="4cm" svg:y="0cm" text:anchor-type="paragraph">
+        <draw:image xlink:actuate="onLoad" xlink:href="Pictures/logo.png" xlink:show="embed" xlink:type="simple"/>
+    </draw:frame>
+    {% endif %}
+{%- endmacro %}
+
+
+{% macro witness_block() %}
+    {{ table_signature_line() }}
+    <text:p text:style-name="text_normal">Signature of witness</text:p>
+
+    {{ table_signature_line() }}
+    <text:p text:style-name="text_normal">Full name of witness</text:p>
+
+    {{ table_signature_line() }}
+    <text:p text:style-name="text_normal">Occupation of witness</text:p>
+
+    {{ table_signature_line() }}
+    <text:p text:style-name="text_normal">Address of witness</text:p>
+{% endmacro %}
+
+{% macro signature_block(signatory, dated) %}
+    {{ signature_image_meta(signatory) }}
+    {{ table_signature_line() }}
+    <text:p text:style-name="text_normal">
+        Signature of {{ signatory.name }}
+    </text:p>
+
+    {% if dated %}
+        {{ table_signature_line() }}
+        <text:p text:style-name="text_normal">Date Signed</text:p>
+    {% endif %}
+{% endmacro %}
+
+{% macro signature_block_heading(signatory, witnessed=false) %}
+    <text:p text:style-name="text_normal">
+        Signed by <text:span text:style-name="bold">{{ signatory.name }}</text:span>
+
+        {%- if signatory.signingMethod.signingMethod == 'themself only' -%}
+            {% if signatory.signingMethod.capacity.capacityType != 'No Capacity' %}
+                {#
+                 #  Signing for themself only wiuth a capacity
+                 #}
+
+                as
+
+                {% if signatory.signingMethod.capacity.capacityType == '[Custom]' %}
+                    {{ signatory.signingMethod.capacity.customCapacity }}
+                {% else %}
+                    {{ signatory.signingMethod.capacity.capacityType }}
+                {% endif %}
+
+                of
+
+                {{ signatory.signingMethod.capacity.of }}
+            {%- endif -%}
+        {% elif signatory.signingMethod != undefined %}
+            {#
+             #  Signing on behalf of themself and others or other only
+             #}
+
+            on behalf of
+
+            {% set otherParties = signatory.signingMethod.parties %}
+
+            {%- if signatory.signingMethod.signingMethod == 'themself and others' %}
+                {% set otherParties = otherParties | prepend(signatory) %}
+            {%- endif -%}
+
+            {{ otherParties | join_and('name') }}
+
+            {%- if signatory.signingMethod.capacity.capacityType != 'No Capacity' -%}
+                , as {{ signatory.signingMethod.capacity.capacityType }}
+            {%- endif -%}
+        {% endif %}
+
+        {%- if witnessed %}
+            in the presence of
+        {%- endif -%}
+
+        :
+    </text:p>
+{% endmacro %}
+
+{% macro witnessed_signatory_table(signatory, includeDateField) %}
+    <table:table table:name="Signature Table" table:style-name="signature_table">
+        <table:table-column table:number-columns-repeated="2" table:style-name="signature_table_column"/>
+
+        {# Display the capacity in it's own row, so the signature lines line up #}
+        <table:table-row table:style-name="signature_table_row">
+            <table:table-cell office:value-type="string" table:style-name="signature_table_cell">
+                {{ signature_block_heading(signatory, witnessed=true) }}
+            </table:table-cell>
+        </table:table-row>
+
+        {# Print the signature and the witness block beside it #}
+        <table:table-row table:style-name="signature_table_row">
+            <table:table-cell office:value-type="string" table:style-name="signature_table_cell">
+                {{ witness_block() }}
+            </table:table-cell>
+            <table:table-cell office:value-type="string" table:style-name="signature_table_cell">
+                {{ signature_block(signatory, includeDateField) }}
+            </table:table-cell>
+        </table:table-row>
+    </table:table>
+{% endmacro %}
+
+{% macro unwitnessed_batched_signatory_table(batchedSignatories, signaturesIndividuallyDated) %}
+    {% set signatoryOne = batchedSignatories[0] %}
+    {% set signatoryTwo = batchedSignatories[1] %}
+
+    <table:table table:name="Signature Table" table:style-name="signature_table">
+        <table:table-column table:number-columns-repeated="2" table:style-name="signature_table_column"/>
+
+        {# Display the capacities in their own row, so the signature lines line up #}
+        <table:table-row table:style-name="signature_table_row">
+            <table:table-cell office:value-type="string" table:style-name="signature_table_cell">
+                {{ signature_block_heading(signatoryOne) }}
+            </table:table-cell>
+
+            {% if signatoryTwo %}
+                <table:table-cell office:value-type="string" table:style-name="signature_table_cell">
+                    {{ signature_block_heading(signatoryTwo) }}
+                </table:table-cell>
+            {% endif %}
+        </table:table-row>
+
+        {# Display the signatures #}
+        <table:table-row table:style-name="signature_table_row">
+            <table:table-cell office:value-type="string" table:style-name="signature_table_cell">
+                {{ signature_block(signatoryOne, signaturesIndividuallyDated) }}
+            </table:table-cell>
+
+            {% if signatoryTwo %}
+                <table:table-cell office:value-type="string" table:style-name="signature_table_cell">
+                    {{ signature_block(signatoryTwo, signaturesIndividuallyDated) }}
+                </table:table-cell>
+            {% endif %}
+        </table:table-row>
+    </table:table>
+{% endmacro %}
+
+{% macro basic_signature_table(signatories, requiresWitnessing, signaturesIndividuallyDated) %}
+    <table:table table:name="Signature Table Container" table:style-name="signature_table_container_table">
+        <table:table-column table:number-columns-repeated="1" table:style-name="signature_table_container_table_column"/>
+
+        {% if requiresWitnessing %}
+            {#
+            # Signature table with witnessing
+            #}
+            {% for signatory in signatories %}
+                <table:table-row table:style-name="signature_table_container_table_row">
+                    <table:table-cell office:value-type="string" table:style-name="signature_table_container_table_cell">
+                        {{ witnessed_signatory_table(signatory, signaturesIndividuallyDated) }}
+                    </table:table-cell>
+                </table:table-row>
+            {% endfor %}
+        {% else %}
+            {#
+            # Signature table without witnessing
+            #}
+            {% for batchedSignatories in signatories | batch(2) %}
+                <table:table-row table:style-name="signature_table_container_table_row">
+                    <table:table-cell office:value-type="string" table:style-name="signature_table_container_table_cell">
+                        {{ unwitnessed_batched_signatory_table(batchedSignatories, signaturesIndividuallyDated) }}
+                    </table:table-cell>
+                </table:table-row>
+            {% endfor %}
+        {% endif %}
+    </table:table>
+{% endmacro %}
+
+{% macro signature_table(data, title_text=null) %}
+    {% set signaturesIndividuallyDated = (data.signingDate.signingOnSameDay == 'no') %}
+    {% set requiresWitnessing = (data.requiresWitnessing == 'yes') %}
+
+    <text:p text:style-name="text_normal">
+        <text:span text:style-name="bold">
+            {% if title_text %}
+                {{ title_text }}
+            {% else %}
+                {% if requiresWitnessing %}
+                    EXECUTED AND DELIVERED AS A DEED
+                {% else %}
+                    SIGNATURES
+                {% endif %}
+            {% endif %}
+        </text:span>
+    </text:p>
+
+    {% if not signaturesIndividuallyDated %}
+        <text:p text:style-name="text_normal">
+            <text:span text:style-name="bold">
+                Signing Date: {{ data.signingDate.date }}
+            </text:span>
+        </text:p>
+    {% endif %}
+
+
+    {{ basic_signature_table(data.signatories, requiresWitnessing, signaturesIndividuallyDated) }}
+{% endmacro %}
