@@ -1,0 +1,13 @@
+{
+  "name": "court-costs-templates",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joshgagnon/court-costs-templates.git"
+  },
+  "author": "Joshua Gagnon",
+  "homepage": "https://github.com/joshgagnon/court-costs-templates",
+  "devDependencies": {
+  }
+}
