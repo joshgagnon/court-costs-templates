@@ -2,13 +2,19 @@
     <text:h text:style-name="heading_1">{{ text }}</text:h>
 {% endmacro %}
 
-{% macro company_info_subtitle(companyName, companyNumber) %}
-    <text:h text:style-name="heading_2">{{ companyName }} ({{ companyNumber }}) (“Company”)</text:h>
+{% macro blank_title_line() %}
+    <text:h text:style-name="heading_2"/>
 {% endmacro %}
 
-{% macro date_subtitle(text) %}
+
+{% macro subtitle(text) %}
+    <text:h text:style-name="heading_2">{{ text }}</text:h>
+{% endmacro %}
+
+{% macro subsubtitle(text) %}
     <text:h text:style-name="heading_3">{{ text }}</text:h>
 {% endmacro %}
+
 
 {% macro blank_line() %}
     <text:p text:style-name="text_normal" />

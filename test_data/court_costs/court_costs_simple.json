@@ -1,0 +1,39 @@
+{
+    "rate": "234.00",
+    "rateCode": "1",
+    "costs": [{
+        "costCode": "234",
+        "description": "some description",
+        "rateCode": "2",
+        "band": "A",
+        "days": 3,
+        "dateString": "234/234/234",
+        "amount": "$23423.00"
+    },{
+        "costCode": "23434",
+        "description": "some toerh description",
+        "rateCode": "2",
+        "band": "A",
+        "days": 13,
+        "dateString": "234/234/234",
+        "amount": "$233423.00"
+    }],
+    "costTotal": "$234.2",
+    "disbursements": [{
+        "code": "234",
+        "description": "some description",
+        "count": 3,
+        "dateString": "234/234/234",
+        "amount": "$23423.00",
+        "itemAmount": "$23423.00"
+    },{
+        "code": "234",
+        "description": "some description",
+        "count": 3,
+        "dateString": "234/234/234",
+        "amount": "$23423.00",
+        "itemAmount": "$23423.00"
+    }],
+    "disbursementTotal": "$234.2",
+    "total": "$666.66"
+}

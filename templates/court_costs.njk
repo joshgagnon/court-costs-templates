@@ -1,3 +1,4 @@
+
 {% extends 'layouts/default.njk' %}
 
 {% import 'partials/components.njk' as components %}
@@ -6,5 +7,183 @@
 
 {% block body %}
 
+    {{ components.title('SCHEDULE OF COSTS AND DISBURSEMENT') }}
+    {{ components.blank_title_line() }}
 
+    {% if costs.length %}
+    {{ components.subtitle('COSTS') }}
+    {{ components.subsubtitle('(Category '+rateCode+' - '+rate+' per day)') }}
+    {{ components.blank_title_line() }}
+
+            <table:table table:style-name="table_costs">
+                <table:table-columns>
+                    <table:table-column table:style-name="table_costs_column_1"/>
+                    <table:table-column table:style-name="table_costs_column_2"/>
+                    <table:table-column table:style-name="table_costs_column_3"/>
+                    <table:table-column table:style-name="table_costs_column_4"/>
+                    <table:table-column table:style-name="table_costs_column_5"/>
+                    <table:table-column table:style-name="table_costs_column_6"/>
+
+                </table:table-columns>
+
+                <table:table-row table:style-name="table_row">
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P16">
+                            <text:span text:style-name="table-cell-bold">Item</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P19">
+                            <text:span text:style-name="table-cell-bold">Description</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P22">
+                            <text:span text:style-name="table-cell-bold">Date</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P25">
+                            <text:span text:style-name="table-cell-bold">Scale</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P28">
+                            <text:span text:style-name="table-cell-bold">Days</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P31">
+                            <text:span text:style-name="table-cell-bold">Amount</text:span>
+                        </text:p>
+                    </table:table-cell>
+                </table:table-row>
+
+                {% for cost in costs %}
+                    <table:table-row table:style-name="table_row">
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P35">
+                                <text:span text:style-name="T36">{{ cost.costCode }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P38">
+                                <text:span text:style-name="T39">{{ cost.description }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P41">
+                                <text:span text:style-name="T42">{{ cost.dateString }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P44">
+                                <text:span text:style-name="T45">{{ cost.rateCode + cost.band }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P47">
+                                <text:span text:style-name="T48">{{ cost.days }} </text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P50">
+                                <text:span text:style-name="T51">{{ cost.amount }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                    </table:table-row>
+                {% endfor %}
+            </table:table>
+            <text:p text:style-name="total">TOTAL COSTS: {{ costTotal }}</text:p>
+
+            {{ components.blank_title_line() }}
+
+        {% endif %}
+          {% if disbursements.length %}
+            {{ components.subtitle('DISBURSEMENTS') }}
+            {{ components.blank_title_line() }}
+
+            <table:table table:style-name="table_costs">
+                <table:table-columns>
+                    <table:table-column table:style-name="table_disbursements_column_1"/>
+                    <table:table-column table:style-name="table_disbursements_column_2"/>
+                    <table:table-column table:style-name="table_disbursements_column_3"/>
+                    <table:table-column table:style-name="table_disbursements_column_4"/>
+                    <table:table-column table:style-name="table_disbursements_column_5"/>
+                    <table:table-column table:style-name="table_disbursements_column_6"/>
+
+                </table:table-columns>
+                <table:table-row table:style-name="table_row">
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P16">
+                            <text:span text:style-name="table-cell-bold">Item</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P19">
+                            <text:span text:style-name="table-cell-bold">Description</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P22">
+                            <text:span text:style-name="table-cell-bold">Date</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P25">
+                            <text:span text:style-name="table-cell-bold">Item Cost</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P28">
+                            <text:span text:style-name="table-cell-bold">Count</text:span>
+                        </text:p>
+                    </table:table-cell>
+                    <table:table-cell table:style-name="table_cell">
+                        <text:p text:style-name="P31">
+                            <text:span text:style-name="table-cell-bold">Amount</text:span>
+                        </text:p>
+                    </table:table-cell>
+                </table:table-row>
+                {% for disbursement in disbursements %}
+                    <table:table-row table:style-name="table_row">
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P35">
+                                <text:span text:style-name="T36">{{ disbursement.code }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P38">
+                                <text:span text:style-name="T39">{{ disbursement.description }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P41">
+                                <text:span text:style-name="T42">{{ disbursement.dateString }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P44">
+                                <text:span text:style-name="T45">{{ disbursement.itemCost }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P47">
+                                <text:span text:style-name="T48">{{ disbursement.count }} </text:span>
+                            </text:p>
+                        </table:table-cell>
+                        <table:table-cell table:style-name="table_cell">
+                            <text:p text:style-name="P50">
+                                <text:span text:style-name="T51">{{ disbursement.amount }}</text:span>
+                            </text:p>
+                        </table:table-cell>
+                    </table:table-row>
+                {% endfor %}
+            </table:table>
+            <text:p text:style-name="total">TOTAL DISBURSEMENTS: {{ disbursementTotal }}</text:p>
+            {{ components.blank_title_line() }}
+            {% endif %}
+            {% if costs.length and disbursements.length %}
+                <text:p text:style-name="total">TOTAL COSTS AND DISBURSEMENTS: {{ total }}</text:p>
+            {% endif %}
 {% endblock %}

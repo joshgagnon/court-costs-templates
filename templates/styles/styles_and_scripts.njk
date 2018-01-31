@@ -17,53 +17,21 @@
     <!--
     **  Headings
     -->
-    <style:style
-        style:name="heading_1"
-        style:display-name="Heading 1"
-        style:parent-style-name="Heading"
-        text:outline-level="1"
-        style:family="paragraph"
-        style:next-style-name="text_body">
 
-        <style:text-properties
-            fo:font-size="11pt"
-            style:font-name="Calibri2"
-            style:font-size-asian="11pt"
-            style:font-size-complex="11pt" />
+        <style:style style:family="paragraph" style:master-page-name="MP0" style:name="heading_1" style:parent-style-name="Title">
+            <style:paragraph-properties fo:break-before="page" fo:line-height="100%" fo:margin-bottom="0in"/>
+            <style:text-properties fo:country="AU" fo:language="en" style:font-size-complex="11pt"/>
+        </style:style>
 
-    </style:style>
+        <style:style style:family="paragraph" style:name="heading_2" style:parent-style-name="Title">
+            <style:paragraph-properties fo:line-height="100%" fo:margin-bottom="0in"/>
+            <style:text-properties fo:country="AU" fo:language="en" style:font-size-complex="11pt"/>
+        </style:style>
 
-    <style:style
-        style:name="heading_2"
-        style:display-name="Heading 2"
-        style:parent-style-name="Heading"
-        text:outline-level="2"
-        style:family="paragraph"
-        style:next-style-name="text_body">
-
-        <style:text-properties
-            fo:font-size="11pt"
-            style:font-name="Calibri2"
-            style:font-size-asian="11pt"
-            style:font-size-complex="11pt" />
-
-    </style:style>
-
-    <style:style
-        style:name="heading_3"
-        style:display-name="Heading 3"
-        style:parent-style-name="Heading"
-        text:outline-level="3"
-        style:family="paragraph"
-        style:next-style-name="text_body">
-
-        <style:text-properties
-            fo:font-size="11pt"
-            style:font-name="Calibri2"
-            style:font-size-asian="11pt"
-            style:font-size-complex="11pt" />
-
-    </style:style>
+        <style:style style:family="paragraph" style:name="heading_3" style:parent-style-name="Para">
+            <style:paragraph-properties fo:line-height="100%" fo:margin-bottom="0in" fo:text-align="center"/>
+            <style:text-properties fo:country="AU" fo:language="en"/>
+        </style:style>
 
     <!--
     **  Paragraphs
@@ -91,78 +59,74 @@
         <style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold" />
     </style:style>
 
-    <!--
-    **  Signature line
-    -->
-    <style:style
-        style:family="paragraph"
-        style:name="signature_line"
-        style:parent-style-name="horizontal_line">
-    </style:style>
+        <style:style style:family="paragraph" style:name="total" style:parent-style-name="Title">
+            <style:paragraph-properties fo:line-height="100%" fo:margin-bottom="0in" fo:text-align="end" fo:text-indent="0.5in">
+                <style:tab-stops/>
+            </style:paragraph-properties>
+            <style:text-properties fo:country="AU" fo:language="en" style:font-size-complex="11pt"/>
+        </style:style>
 
     <!--
     **  Tables
     -->
-    <style:style style:family="table" style:name="signature_table_container_table">
-        <style:table-properties style:shadow="none" style:width="17cm" table:align="margins"/>
-    </style:style>
-    <style:style style:family="table-column" style:name="signature_table_container_table_column">
-        <style:table-column-properties style:column-width="17cm" style:rel-column-width="32767*"/>
-    </style:style>
-    <style:style style:family="table-row" style:name="signature_table_container_table_row">
-        <style:table-row-properties fo:keep-together="always"/>
-    </style:style>
-    <style:style style:family="table-cell" style:name="signature_table_container_table_cell">
-        <style:table-cell-properties fo:border="none" fo:padding="0cm" />
-    </style:style>
+         <style:style style:family="table" style:name="table_costs">
 
-    <style:style style:family="table" style:name="signature_table">
-        <style:table-properties style:shadow="none" style:width="17cm" table:align="margins"/>
-    </style:style>
-    <style:style style:family="table-column" style:name="signature_table_column">
-        <style:table-column-properties style:column-width="8.5cm" style:rel-column-width="32767*"/>
-    </style:style>
-    <style:style style:family="table-row" style:name="signature_table_row">
-        <style:table-row-properties fo:keep-together="always"/>
-    </style:style>
-    <style:style style:family="table-cell" style:name="signature_table_cell">
-        <style:table-cell-properties fo:border="none" fo:padding-left="0cm" fo:padding-right="1.5cm" fo:padding-top="0.25cm" fo:padding-bottom="0.25cm" />
-    </style:style>
-
-    {# This is different to a normal signature line, for some unknown reasons :) (Because it's in a table) #}
-    <style:style style:family="paragraph" style:name="table_signature_line" style:parent-style-name="horizontal_line">
-        <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false"/>
-    </style:style>
+        </style:style>
 
 
-    <style:style style:family="table" style:name="layout_table">
-        <style:table-properties style:width="17cm" table:align="margins"/>
-    </style:style>
-    <style:style style:family="table-column" style:name="layout_table_column">
-        <style:table-column-properties style:column-width="8.5cm" style:rel-column-width="32767*"/>
-    </style:style>
-    <style:style style:family="table-cell" style:name="layout_table_cell">
-        <style:table-cell-properties fo:border="0.05pt solid #000000" fo:padding="0.25cm" fo:padding-top="0.35cm" />
-    </style:style>
+
+        <style:style style:family="table-column" style:name="table_costs_column_1">
+            <style:table-column-properties style:column-width="0.434in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_costs_column_2">
+            <style:table-column-properties style:column-width="2.1548in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_costs_column_3">
+            <style:table-column-properties style:column-width="0.887in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_costs_column_4">
+            <style:table-column-properties style:column-width="0.5309in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_costs_column_5">
+            <style:table-column-properties style:column-width="0.4444in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_costs_column_6">
+            <style:table-column-properties style:column-width="0.7783in"/>
+        </style:style>
+
+        <style:style style:family="table-column" style:name="table_disbursements_column_1">
+            <style:table-column-properties style:column-width="0.434in"/>
+        </style:style>
+
+        <style:style style:family="table-column" style:name="table_disbursements_column_2">
+            <style:table-column-properties style:column-width="2.1548in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_disbursements_column_3">
+            <style:table-column-properties style:column-width="0.887in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_disbursements_column_4">
+            <style:table-column-properties style:column-width="0.5309in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_disbursements_column_5">
+            <style:table-column-properties style:column-width="0.4444in"/>
+        </style:style>
+        <style:style style:family="table-column" style:name="table_disbursements_column_6">
+            <style:table-column-properties style:column-width="0.7783in"/>
+        </style:style>
+
+        <style:style style:family="table-cell" style:name="table_cell">
+             <style:text-properties fo:font-size="10pt" />
+            <style:table-cell-properties fo:border="0.0138in solid #000000" fo:padding-bottom="0.05in" fo:padding-left="0.05in" fo:padding-right="0.05in" fo:padding-top="0.05in" style:writing-mode="lr-tb"/>
+        </style:style>
 
 
-    <style:style
-        style:family="paragraph"
-        style:name="table_contents"
-        style:parent-style-name="table_contents_base">
+        <style:style style:family="text" style:name="table-cell-bold" style:parent-style-name="DefaultParagraphFont">
+            <style:text-properties fo:color="#000000" fo:country="GB" fo:font-weight="bold" fo:language="en" style:country-asian="GB" style:font-name-asian="Calibri" style:font-name-complex="Arial" fo:font-size="10pt" style:font-size-complex="10pt" style:font-weight-asian="bold" style:font-weight-complex="bold" style:language-asian="en"/>
+        </style:style>
 
-        <style:paragraph-properties
-                fo:line-height="120%"
-                fo:margin-bottom="0cm"
-                fo:margin-top="0cm"
-                loext:contextual-spacing="false" />
 
-        <style:text-properties
-            fo:font-size="11pt"
-            style:font-name="Calibri2"
-            style:font-size-asian="11pt"
-            style:font-size-complex="11pt" />
-    </style:style>
+
+
 
     <!--
     **  Lists
