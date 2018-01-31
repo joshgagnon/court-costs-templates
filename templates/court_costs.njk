@@ -6,8 +6,7 @@
 {% import 'partials/blocks.njk' as blocks %}
 
 {% block body %}
-
-    {{ components.title('SCHEDULE OF COSTS AND DISBURSEMENT') }}
+    {{ components.title('SCHEDULE OF COSTS AND DISBURSEMENTS') }}
     {{ components.blank_title_line() }}
 
     {% if costs.length %}
@@ -94,7 +93,7 @@
                     </table:table-row>
                 {% endfor %}
             </table:table>
-            <text:p text:style-name="total">TOTAL COSTS: {{ costTotal }}</text:p>
+            <text:p text:style-name="total">TOTAL COSTS: {{ costsTotal }}</text:p>
 
             {{ components.blank_title_line() }}
 
@@ -180,7 +179,7 @@
                     </table:table-row>
                 {% endfor %}
             </table:table>
-            <text:p text:style-name="total">TOTAL DISBURSEMENTS: {{ disbursementTotal }}</text:p>
+            <text:p text:style-name="total">TOTAL DISBURSEMENTS: {{ disbursementsTotal }}</text:p>
             {{ components.blank_title_line() }}
             {% endif %}
             {% if costs.length and disbursements.length %}
