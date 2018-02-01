@@ -93,6 +93,9 @@
                     </table:table-row>
                 {% endfor %}
             </table:table>
+            {% if uplift %}
+            <text:p text:style-name="total">UPLIFT: {{ uplift }}%</text:p>
+            {% endif %}
             <text:p text:style-name="total">TOTAL COSTS: {{ costsTotal }}</text:p>
 
             {{ components.blank_title_line() }}
